@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SEPTI DUTA INSAN Tour & Travel</title>
+    <meta name="description" content="SEPTI DUTA INSAN — layanan tour & travel Indonesia. Rental kendaraan, tiket, voucher akomodasi, paket wisata domestik dan internasional."/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root{
+            --brand:#007bff;
+            --accent:#28a745;
+            --bg:#e8f4f8;
+            --muted:#666;
+            --card:#fff;
+        }
+        *{box-sizing:border-box}
+        body { font-family: 'Poppins', Arial, sans-serif; margin: 0; padding: 0; background-color: var(--bg); color: #333; line-height: 1.6; -webkit-font-smoothing:antialiased; }
+        header { background-color: var(--card); padding: 12px 18px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 20px; font-weight: 600; color: var(--brand); display:flex; align-items:center; gap:10px; }
+        .logo i { margin-right: 4px; font-size:20px; }
+        nav { display: flex; align-items: center; gap:8px; flex-wrap:wrap; }
+        nav a { color: #333; margin: 0 8px; text-decoration: none; font-weight: 500; transition: color 0.2s; padding:6px 8px; border-radius:6px; }
+        nav a:focus, nav a:hover { color: var(--brand); background: rgba(0,123,255,0.06); outline: none; }
+        .lang-toggle button { padding: 8px 12px; background-color: var(--accent); color: white; border: none; border-radius: 6px; cursor: pointer; font-family: 'Poppins'; margin-left: 10px; transition: background-color 0.18s ease, transform 0.12s ease; }
+        .lang-toggle button:hover { background-color: #218838; transform: translateY(-2px); }
+        main{max-width:1200px;margin:0 auto;padding:20px;}
+        /* Reveal/visibility */
+        section { padding: 40px 0; opacity: 0; transform: translateY(12px); transition: opacity .45s ease, transform .45s ease; }
+        section.visible { opacity: 1; transform: translateY(0); }
+        .hero { display:block; margin-bottom:24px; }
+        .slider { position: relative; overflow: hidden; height: 420px; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); background:#ddd; }
+        .slider img { width: 100%; height: 100%; object-fit: cover; position: absolute; top:0; left:0; opacity: 0; transition: opacity 900ms ease-in-out; }
+        .slider img.active { opacity: 1; position: absolute; }
+        .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top:18px; margin-bottom:18px; }
+        .review { background-color: var(--card); padding: 16px; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); text-align: left; }
+        .review .stars { color: #ffd700; margin-bottom: 8px; font-size:14px; }
+        .services-overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top:12px; }
+        .service-overview { text-align: center; padding: 16px; background-color: var(--card); border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); transition: transform 0.25s; }
+        .service-overview:hover { transform: translateY(-6px); }
+        .service-overview i { font-size: 34px; color: var(--brand); margin-bottom: 10px; }
+        .why-us { background-color: var(--brand); color: white; padding: 26px; border-radius: 10px; text-align: center; margin-top:16px; }
+        .destinations { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top:12px; }
+        .destination { position: relative; height: 220px; overflow: hidden; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); cursor: pointer; transition: transform 0.25s; background:#000; }
+        .destination:hover { transform: translateY(-6px) scale(1.01); }
+        .destination img { width: 100%; height: 100%; object-fit: cover; display:block; }
+        .destination-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.65) 60%); color: white; padding: 14px; display: flex; flex-direction: column; gap:4px; }
+        .destination h3 { margin: 0; font-size: 18px; }
+        .destination p { margin: 0; font-size: 13px; color: #e8eef8; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 18px; }
+        .service-item { text-align: center; padding: 18px; background-color: var(--card); border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); transition: transform 0.25s; }
+        .service-item:hover { transform: translateY(-6px); }
+        .service-item i { font-size: 34px; color: var(--brand); margin-bottom: 10px; }
+        .service-item h4 { font-size: 16px; margin-bottom: 8px; }
+        .service-item p { font-size: 14px; color: var(--muted); margin:0; }
+        .contact { text-align: center; padding: 12px 6px; }
+        .contact a { display: inline-block; margin: 8px 10px; padding: 12px 16px; background-color: var(--brand); color: white; text-decoration: none; border-radius: 8px; transition: background 0.2s; }
+        .contact a:hover { background-color: #0056b3; }
+        footer { background-color: #222; color: white; padding: 28px 12px; text-align: center; margin-top:30px; }
+        footer .social a { color: white; margin: 0 8px; font-size: 18px; display:inline-block; }
+        .muted { color: var(--muted); font-size:14px; }
+        /* Responsive tweaks */
+        @media (max-width:600px){
+            .slider{height:260px}
+            header{padding:10px}
+            .logo{font-size:18px}
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" aria-label="Septi Duta Insan">
+            <i class="fas fa-plane" aria-hidden="true"></i>
+            <span>SEPTI DUTA INSAN</span>
+        </div>
+
+        <nav aria-label="Main navigation">
+            <a href="#home" id="nav-home">Home</a>
+            <a href="#destinations" id="nav-destinations">Destinasi</a>
+            <a href="#services" id="nav-services">Layanan</a>
+            <a href="#contact" id="nav-contact">Hubungi Kami</a>
+            <div class="lang-toggle" title="Toggle language">
+                <button id="lang-btn" aria-pressed="false">ID</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero visible" aria-labelledby="home-title">
+            <h2 id="home-title">Selamat Datang di SEPTI DUTA INSAN Tour & Travel</h2>
+
+            <div class="slider" aria-hidden="false" aria-roledescription="image carousel">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Pantai Bali" class="active" />
+                <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Gunung Bromo" />
+                <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Candi Borobudur" />
+            </div>
+
+            <div class="reviews" aria-label="Customer reviews">
+                <div class="review" role="article">
+                    <div class="stars" aria-hidden="true">★★★★★</div>
+                    <p>"Pengalaman luar biasa! Layanan lengkap dan ramah."</p>
+                    <cite class="muted">- Andi, Jakarta</cite>
+                </div>
+                <div class="review" role="article">
+                    <div class="stars" aria-hidden="true">★★★★★</div>
+                    <p>"Tour itinerary yang sempurna untuk keluarga besar."</p>
+                    <cite class="muted">- Siti, Bandung</cite>
+                </div>
+                <div class="review" role="article">
+                    <div class="stars" aria-hidden="true">★★★★★</div>
+                    <p>"Rental kendaraan dan voucher hotel sangat membantu."</p>
+                    <cite class="muted">- Budi, Surabaya</cite>
+                </div>
+            </div>
+
+            <div class="services-overview" aria-label="Ringkasan layanan">
+                <div class="service-overview" role="group" aria-labelledby="service-overview-1">
+                    <i class="fas fa-car" aria-hidden="true"></i>
+                    <h4 id="service-overview-1">Rental Kendaraan</h4>
+                    <p>Mini bus, mobil pribadi, Hiace, dll.</p>
+                </div>
+                <div class="service-overview" role="group" aria-labelledby="service-overview-2">
+                    <i class="fas fa-plane" aria-hidden="true"></i>
+                    <h4 id="service-overview-2">Tiket Transportasi</h4>
+                    <p>Pesawat, kereta, bus, kapal.</p>
+                </div>
+                <div class="service-overview" role="group" aria-labelledby="service-overview-3">
+                    <i class="fas fa-hotel" aria-hidden="true"></i>
+                    <h4 id="service-overview-3">Voucher Akomodasi</h4>
+                    <p>Hotel, villa, hostel, dll.</p>
+                </div>
+            </div>
+
+            <div class="why-us" role="region" aria-labelledby="why-title">
+                <h3 id="why-title">Kenapa Harus SEPTI DUTA INSAN TOUR & TRAVEL?</h3>
+                <p id="why-desc">Kami adalah mitra perjalanan terpercaya di Indonesia dengan pengalaman lebih dari 10 tahun. Fleksibilitas layanan kami memungkinkan penanganan grup besar hingga kecil, serta layanan khusus untuk perusahaan dan acara MICE. Kami prioritaskan keamanan, kenyamanan, dan kustomisasi sesuai kebutuhan klien.</p>
+            </div>
+        </section>
+
+        <section id="destinations" aria-labelledby="dest-title" class="hidden">
+            <h2 id="dest-title">Destinasi Wisata Indonesia</h2>
+            <div class="destinations" role="list">
+                <div class="destination" role="listitem" onclick="openWA('Bali')" tabindex="0" onkeypress="if(event.key==='Enter') openWA('Bali')">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pantai Bali">
+                    <div class="destination-overlay">
+                        <h3>Bali</h3>
+                        <p>Pantai indah dan budaya yang kaya.</p>
+                    </div>
+                </div>
+                <div class="destination" role="listitem" onclick="openWA('Bromo')" tabindex="0" onkeypress="if(event.key==='Enter') openWA('Bromo')">
+                    <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gunung Bromo">
+                    <div class="destination-overlay">
+                        <h3>Gunung Bromo</h3>
+                        <p>Petualangan dan sunrise spektakuler.</p>
+                    </div>
+                </div>
+                <div class="destination" role="listitem" onclick="openWA('Borobudur')" tabindex="0" onkeypress="if(event.key==='Enter') openWA('Borobudur')">
+                    <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Candi Borobudur">
+                    <div class="destination-overlay">
+                        <h3>Borobudur</h3>
+                        <p>Kejayaan budaya dan spiritual.</p>
+                    </div>
+                </div>
+                <div class="destination" role="listitem" onclick="openWA('Komodo')" tabindex="0" onkeypress="if(event.key==='Enter') openWA('Komodo')">
+                    <img src="https://images.unsplash.com/photo-1573790387438-4da905039392?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pulau Komodo">
+                    <div class="destination-overlay">
+                        <h3>Pulau Komodo</h3>
+                        <p>Keajaiban alam dan satwa liar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 id="world-title" style="margin-top:18px">Around The World</h3>
+            <p id="world-desc" class="muted">Untuk klien Indonesia yang ingin menjelajah luar negeri, kami siap bantu dengan itinerary internasional.</p>
+
+            <div class="destinations" style="margin-top:8px;">
+                <div class="destination" role="listitem" onclick="openWA('Japan')" tabindex="0" onkeypress="if(event.key==='Enter') openWA('Japan')">
+                    <img src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jepang">
+                    <div class="destination-overlay">
+                        <h3>Japan</h3>
+                        <p>Budaya modern dan tradisional.</p>
+                    </div>
+                </div>
+                <div class="destination" role="listitem" onclick="openWA('Europe')" tabindex="0" onkeypress="if(event.key==='Enter') openWA('Europe')">
+                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Eropa">
+                    <div class="destination-overlay">
+                        <h3>Europe</h3>
+                        <p>Sejarah dan keindahan kota-kota tua.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" aria-labelledby="services-title" class="hidden">
+            <h2 id="services-title">Layanan Kami</h2>
+            <p id="services-intro" class="muted">Kami menawarkan layanan komprehensif untuk berbagai jenis traveler: grup besar, kecil, private, perusahaan, dll. Layanan bisa dikustom sesuai itinerary klien atau disediakan sebagai paket set.</p>
+
+            <div class="services-grid" role="list">
+                <div class="service-item" role="listitem">
+                    <i class="fas fa-car" aria-hidden="true"></i>
+                    <h4 id="service1-title">Rental Kendaraan</h4>
+                    <p id="service1-desc">Mini bus, mobil pribadi, Hiace, bus besar, Long Elf, Elf, dll. untuk perjalanan nyaman.</p>
+                </div>
+                <div class="service-item" role="listitem">
+                    <i class="fas fa-plane" aria-hidden="true"></i>
+                    <h4 id="service2-title">Tiket Transportasi</h4>
+                    <p id="service2-desc">Pesawat, kereta api, bus, kapal untuk perjalanan tanpa repot.</p>
+                </div>
+                <div class="service-item" role="listitem">
+                    <i class="fas fa-ticket-alt" aria-hidden="true"></i>
+                    <h4 id="service3-title">Tiket Wisata</h4>
+                    <p id="service3-desc">Akses ke atraksi, taman, dan situs budaya di Indonesia.</p>
+                </div>
+                <div class="service-item" role="listitem">
+                    <i class="fas fa-hotel" aria-hidden="true"></i>
+                    <h4 id="service4-title">Voucher Akomodasi</h4>
+                    <p id="service4-desc">Hotel, villa, homestay, dan akomodasi terpilih untuk semua anggaran.</p>
+                </div>
+            </div>
+
+            <div style="margin-top:18px;">
+                <h3>Tambahan</h3>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <i class="fas fa-briefcase" aria-hidden="true"></i>
+                        <h4>Corporate & MICE</h4>
+                        <p>Penanganan acara perusahaan, meeting, incentive travel, dan logistic.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-user-tie" aria-hidden="true"></i>
+                        <h4>Tour Guide & Crew</h4>
+                        <p>Pemandu berpengalaman, supir profesional, dan tim pendukung.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" aria-labelledby="contact-title">
+            <h2 id="contact-title">Hubungi Kami</h2>
+            <p class="muted">Hubungi tim kami untuk penawaran, kustom itinerary, atau pertanyaan lainnya.</p>
+            <div class="contact" role="region" aria-label="Contact options">
+                <a href="https://wa.me/6287885611431" target="_blank" rel="noopener noreferrer" id="btn-wa" aria-label="Chat via WhatsApp">
+                    <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp
+                </a>
+                <a href="tel:+6287885611431" id="btn-phone" aria-label="Call phone number">
+                    <i class="fas fa-phone" aria-hidden="true"></i> +62 878-8561-1431
+                </a>
+                <a href="mailto:info@septidutainsan.id" id="btn-email" aria-label="Send email">
+                    <i class="fas fa-envelope" aria-hidden="true"></i> info@septidutainsan.id
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div style="margin-bottom:10px;">© <span id="year"></span> SEPTI DUTA INSAN. All rights reserved.</div>
+        <div class="social" aria-label="Social links">
+            <a href="#" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook" title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="TikTok" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p class="muted" style="margin-top:10px;">Design sederhana — responsive dan dapat diakses. Untuk integrasi lebih lanjut (API booking, server-side email), hubungi tim pengembang.</p>
+    </footer>
+
+    <script>
+        // Simple slider
+        (function(){
+            const slides = Array.from(document.querySelectorAll('.slider img'));
+            if (!slides.length) return;
+            let idx = 0;
+            function show(i){
+                slides.forEach((s, j) => s.classList.toggle('active', j === i));
+            }
+            function next(){
+                idx = (idx + 1) % slides.length;
+                show(idx);
+            }
+            // auto rotate
+            let rot = setInterval(next, 4000);
+            // pause on hover
+            const slider = document.querySelector('.slider');
+            slider.addEventListener('mouseover', () => clearInterval(rot));
+            slider.addEventListener('mouseleave', () => rot = setInterval(next, 4000));
+        })();
+
+        // Navigation reveal + smooth scroll
+        (function(){
+            const showSection = (id) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                // ensure section becomes visible and then scroll to it
+                el.classList.add('visible');
+                el.scrollIntoView({behavior:'smooth', block:'start'});
+            };
+
+            document.getElementById('nav-destinations').addEventListener('click', (e) => { e.preventDefault(); showSection('destinations'); });
+            document.getElementById('nav-services').addEventListener('click', (e) => { e.preventDefault(); showSection('services'); });
+            document.getElementById('nav-contact').addEventListener('click', (e) => { e.preventDefault(); showSection('contact'); });
+            document.getElementById('nav-home').addEventListener('click', (e) => { e.preventDefault(); showSection('home'); });
+
+            // reveal sections if user scrolls to them (progressive reveal)
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, {threshold: 0.08});
+            document.querySelectorAll('section').forEach(s => observer.observe(s));
+        })();
+
+        // WhatsApp open helper
+        function openWA(topic){
+            const phone = '6287885611431';
+            const text = encodeURIComponent('Inquiry for ' + topic);
+            // use noreferrer and noopener for safety
+            window.open('https://wa.me/' + phone + '?text=' + text, '_blank', 'noopener,noreferrer');
+        }
+
+        // Language toggle (ID <-> EN) simple client-side translations
+        (function(){
+            const translations = {
+                en: {
+                    navHome: 'Home', navDest: 'Destinations', navServ: 'Services', navContact: 'Contact',
+                    homeTitle: 'Welcome to SEPTI DUTA INSAN Tour & Travel',
+                    whyTitle: 'Why Choose SEPTI DUTA INSAN TOUR & TRAVEL?',
+                    whyDesc: 'We are a trusted travel partner in Indonesia with over 10 years of experience. Our flexible services handle groups large and small, corporate and private tours, with a focus on safety and customization.',
+                    destTitle: 'Indonesia Travel Destinations',
+                    worldTitle: 'Around The World',
+                    worldDesc: 'For Indonesian clients wanting to travel abroad, we assist with international itineraries.',
+                    servicesTitle: 'Our Services',
+                    servicesIntro: 'We offer comprehensive services for different travelers: large groups, small groups, private, corporate, etc. Services can be customized or provided as set packages.',
+                    service1Title: 'Vehicle Rental', service1Desc: 'Minibus, private cars, Hiace, large buses, Long Elf, Elf, etc.',
+                    service2Title: 'Transport Tickets', service2Desc: 'Plane, train, bus, ferry for hassle-free travel.',
+                    service3Title: 'Attraction Tickets', service3Desc: 'Access to attractions, parks, and cultural sites in Indonesia.',
+                    service4Title: 'Accommodation Vouchers', service4Desc: 'Hotels, villas, homestays, and selected accommodations for every budget.',
+                    contactTitle: 'Contact Us',
+                    contactDesc: 'Contact our team for quotes, custom itineraries, or other inquiries.',
+                    waLabel: 'WhatsApp',
+                    phoneLabel: '+62 878-8561-1431',
+                    emailLabel: 'info@septidutainsan.id'
+                },
+                id: {
+                    navHome: 'Home', navDest: 'Destinasi', navServ: 'Layanan', navContact: 'Hubungi Kami',
+                    homeTitle: 'Selamat Datang di SEPTI DUTA INSAN Tour & Travel',
+                    whyTitle: 'Kenapa Harus SEPTI DUTA INSAN TOUR & TRAVEL?',
+                    whyDesc: 'Kami adalah mitra perjalanan terpercaya di Indonesia dengan pengalaman lebih dari 10 tahun. Fleksibilitas layanan kami memungkinkan penanganan grup besar hingga kecil, serta layanan untuk kebutuhan korporat dan personal.',
+                    destTitle: 'Destinasi Wisata Indonesia',
+                    worldTitle: 'Around The World',
+                    worldDesc: 'Untuk klien Indonesia yang ingin menjelajah luar negeri, kami siap bantu dengan itinerary internasional.',
+                    servicesTitle: 'Layanan Kami',
+                    servicesIntro: 'Kami menawarkan layanan komprehensif untuk berbagai jenis traveler: grup besar, kecil, private, perusahaan, dll. Layanan bisa dikustom sesuai itinerary klien atau disediakan sebagai paket set.',
+                    service1Title: 'Rental Kendaraan', service1Desc: 'Mini bus, mobil pribadi, Hiace, bus besar, Long Elf, Elf, dll. untuk perjalanan nyaman.',
+                    service2Title: 'Tiket Transportasi', service2Desc: 'Pesawat, kereta api, bus, kapal untuk perjalanan tanpa repot.',
+                    service3Title: 'Tiket Wisata', service3Desc: 'Akses ke atraksi, taman, dan situs budaya di Indonesia.',
+                    service4Title: 'Voucher Akomodasi', service4Desc: 'Hotel, villa, homestay, dan akomodasi terpilih untuk semua anggaran.',
+                    contactTitle: 'Hubungi Kami',
+                    contactDesc: 'Hubungi tim kami untuk penawaran, kustom itinerary, atau pertanyaan lainnya.',
+                    waLabel: 'WhatsApp',
+                    phoneLabel: '+62 878-8561-1431',
+                    emailLabel: 'info@septidutainsan.id'
+                }
+            };
+
+            const elements = {
+                navHome: document.getElementById('nav-home'),
+                navDest: document.getElementById('nav-destinations'),
+                navServ: document.getElementById('nav-services'),
+                navContact: document.getElementById('nav-contact'),
+                homeTitle: document.getElementById('home-title'),
+                whyTitle: document.getElementById('why-title'),
+                whyDesc: document.getElementById('why-desc'),
+                destTitle: document.getElementById('dest-title'),
+                worldTitle: document.getElementById('world-title'),
+                worldDesc: document.getElementById('world-desc'),
+                servicesTitle: document.getElementById('services-title'),
+                servicesIntro: document.getElementById('services-intro'),
+                service1Title: document.getElementById('service1-title'),
+                service1Desc: document.getElementById('service1-desc'),
+                service2Title: document.getElementById('service2-title'),
+                service2Desc: document.getElementById('service2-desc'),
+                service3Title: document.getElementById('service3-title'),
+                service3Desc: document.getElementById('service3-desc'),
+                service4Title: document.getElementById('service4-title'),
+                service4Desc: document.getElementById('service4-desc'),
+                contactTitle: document.getElementById('contact-title'),
+                // contact items
+                btnWA: document.getElementById('btn-wa'),
+                btnPhone: document.getElementById('btn-phone'),
+                btnEmail: document.getElementById('btn-email'),
+                langBtn: document.getElementById('lang-btn')
+            };
+
+            // default language
+            let lang = 'id';
+            function applyLang(to){
+                const t = translations[to];
+                elements.navHome.textContent = t.navHome;
+                elements.navDest.textContent = t.navDest;
+                elements.navServ.textContent = t.navServ;
+                elements.navContact.textContent = t.navContact;
+                elements.homeTitle.textContent = t.homeTitle;
+                elements.whyTitle.textContent = t.whyTitle;
+                elements.whyDesc.textContent = t.whyDesc;
+                elements.destTitle.textContent = t.destTitle;
+                elements.worldTitle.textContent = t.worldTitle;
+                elements.worldDesc.textContent = t.worldDesc;
+                elements.servicesTitle.textContent = t.servicesTitle;
+                elements.servicesIntro.textContent = t.servicesIntro;
+                elements.service1Title.textContent = t.service1Title;
+                elements.service1Desc.textContent = t.service1Desc;
+                elements.service2Title.textContent = t.service2Title;
+                elements.service2Desc.textContent = t.service2Desc;
+                elements.service3Title.textContent = t.service3Title;
+                elements.service3Desc.textContent = t.service3Desc;
+                elements.service4Title.textContent = t.service4Title;
+                elements.service4Desc.textContent = t.service4Desc;
+                elements.contactTitle.textContent = t.contactTitle;
+                elements.btnWA.innerHTML = '<i class="fab fa-whatsapp" aria-hidden="true"></i> ' + t.waLabel;
+                elements.btnPhone.innerHTML = '<i class="fas fa-phone" aria-hidden="true"></i> ' + t.phoneLabel;
+                elements.btnEmail.innerHTML = '<i class="fas fa-envelope" aria-hidden="true"></i> ' + t.emailLabel;
+                elements.langBtn.textContent = to === 'id' ? 'ID' : 'EN';
+                lang = to;
+                document.documentElement.lang = to === 'id' ? 'id' : 'en';
+                // aria-pressed: true when EN is active (toggle state)
+                elements.langBtn.setAttribute('aria-pressed', String(lang === 'en'));
+            }
+
+            document.getElementById('lang-btn').addEventListener('click', function(){
+                applyLang(lang === 'id' ? 'en' : 'id');
+            });
+
+            // initialize language (default Indonesian)
+            applyLang('id');
+        })();
+
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Improve keyboard accessibility for clickable destination divs
+        (function(){
+            document.querySelectorAll('.destination').forEach(d => {
+                d.addEventListener('keydown', (e) => {
+                    if(e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        d.click();
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
